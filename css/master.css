@@ -1,0 +1,15 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.fondo{
+    background-image: url('../img/snow.jpg');
+    background-size: cover;
+}
+.formulario{
+    background-color: white;
+    border: solid 1px blue;
+    padding: 1rem;
+}
