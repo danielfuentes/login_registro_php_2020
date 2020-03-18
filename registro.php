@@ -4,7 +4,9 @@
     
     if($_POST){
         $errores = validarRegistro($_POST);
-        
+        if(count($errores)==0){
+            header('location: login.php');
+        }
     }
 
 ?>

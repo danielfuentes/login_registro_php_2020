@@ -17,6 +17,10 @@ function validarRegistro($datos){
     if(empty($userName)){
         $errores['userName'] = "Este campo no puede estar en blanco";
     }
-    
+
+    $email = trim($datos['email']);
+    if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+        $errores['email'] = "Email  inválido...";
+    }
     return $errores;
 }
