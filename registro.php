@@ -1,3 +1,13 @@
+<?php
+    require_once('controladores/funciones.php');
+    require_once('helpers/dd.php');
+    
+    if($_POST){
+        $errores = validarRegistro($_POST);
+        
+    }
+
+?>
 <!doctype html>
 <html lang="es">
   <head>
@@ -16,6 +26,15 @@
         <section class="row fondo">
             <article class=" formulario  col-6 offset-3">
                 <h1>Registro de usuarios</h1>
+                <?php 
+                if(isset($errores)):?>
+                    <ul class="text-center alert alert-danger">
+                        <?php foreach ($errores as $error) :?>
+                            <li><?= $error;?></li>
+                        <?php endforeach;?>                    
+                    </ul>
+                <?php endif;?>
+                 
                 <form id="formulario"  class="form" name="formRegistro"     novalidate action=""  method="POST" >
                 <div class="form-group">
                     <label for="userName">Nombre de usuario</label>
@@ -39,10 +58,10 @@
                     <label for="password">Repetir contraseña</label>
                     <input required name="passwordRepeat" type="password" value= ""class="form-control" id="passwordRepeat" placeholder="Repetir contraseña">
                 </div>
-                <div class="form-group">
+               <!-- <div class="form-group">
                     <label for="avatar">Avatar</label>
                     <input required name="avatar" type="file" value= "" class="form-control" id="avatar" >
-                </div>          
+                </div> -->          
             
                 <button type="submit" class="btn btn-primary">Registrarme</button>
                 <a href="login.php" class="btn btn-link">Ya poseo una cuenta</a>
