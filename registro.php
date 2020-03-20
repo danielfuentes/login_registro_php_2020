@@ -1,10 +1,18 @@
 <?php
     require_once('controladores/funciones.php');
     require_once('helpers/dd.php');
-    
+    $userName = "";
+    $email = "";
     if($_POST){
+        
+        $userName = $_POST['userName'];
+        $email = $_POST['email'];
         $errores = validarRegistro($_POST);
         if(count($errores)==0){
+            //dd($_POST);
+            $usuario =  armarRegistro($_POST);
+            //dd($usuario);
+            guardarRegistro($usuario);
             header('location: login.php');
         }
     }
@@ -40,13 +48,14 @@
                 <form id="formulario"  class="form" name="formRegistro"     novalidate action=""  method="POST" >
                 <div class="form-group">
                     <label for="userName">Nombre de usuario</label>
-                    <input required name="userName" type="text" value= "" class="form-control" id="userName" placeholder="Nombre de usuario">
+                    
+                    <input required name="userName" type="text"   value= "<?= $userName;?>" class="form-control" id="userName" placeholder="Nombre de usuario" >
                 </div>
-                <div>
+                
                         
                 <div class="form-group">
                     <label for="email">Correo electrónico</label>
-                    <input required name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingrese su correo" value= "">
+                    <input required name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingrese su correo" value= "<?=$email;?>">
                 </div>
             
                 <div class="form-group">

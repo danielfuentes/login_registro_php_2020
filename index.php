@@ -22,15 +22,24 @@
   <body>
     <div class="container-fluid">
         <?php require_once('partials/header.php');?>
-        <section class="row">
-            <article class="col-xs-12 col-md-6 col-lg-4">
+        <section class="row text-center text-justify">
+            
+            <article class="col-xs-12 col-md-6 col-lg-4 ">
                 <img class="w-100" src="img/bicycle.jpg" alt="Bicicleta">
+                <p  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.</p>
+                <p class="text text-danger">Precio: $18000</p>
             </article>
             <article class="col-xs-12 col-md-6 col-lg-4">
                 <img class="w-100" src="img/bicycle1.jpg" alt="Bicicleta">
+                <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.</p>
+                <p class="text text-danger">Precio: $25000</p>
+
             </article>
             <article class="col-xs-12 col-md-6 col-lg-4">
                 <img class="w-100" src="img/bicycle3.jpg" alt="Bicicleta">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.</p>
+                <p class="text text-danger">Precio: $16000</p>
+
             </article>
         </section>  
         <section>
