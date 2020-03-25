@@ -1,10 +1,49 @@
 <?php
     require_once('controladores/funciones.php');
     require_once('helpers/dd.php');
+    $bd = conexion("localhost","ecommerce","3306","utf8","root","");
+    
     $resultado = sumar(100,20);
     $miArray = datos("Amarillo","Azul","Rojo","Azul");
     //var_dump($miArray);
     //exit;
+    //Creando un array asociativo de productos
+    $productos = [
+        [
+            "imagen" => "bicycle",
+            "descripcion" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.",
+            "precio" => 45000
+        ],
+        [
+            "imagen" => "bicycle",
+            "descripcion" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.",
+            "precio" => 18000
+        ],
+        [
+            "imagen" => "bicycle",
+            "descripcion" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.",
+            "precio" => 14000
+        ],
+        [
+            "imagen" => "bicycle",
+            "descripcion" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.",
+            "precio" => 12500
+        ],
+        [
+            "imagen" => "bicycle",
+            "descripcion" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error do   lores voluptate! Repellat.",
+            "precio" => 28000
+        ],
+        [
+            "imagen" => "bicycle",
+            "descripcion" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.",
+            "precio" => 17400
+        ]
+
+        
+    ];
+    //dd($productos[0]['precio']);
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -23,24 +62,14 @@
     <div class="container-fluid">
         <?php require_once('partials/header.php');?>
         <section class="row text-center text-justify">
+            <?php  foreach ($productos as $indice => $producto) :?>
+                <article class="col-xs-12 col-md-6 col-lg-4 ">
+                    <img class="w-100" src="img/<?= $producto['imagen'].$indice?>.jpg" alt="Bicicleta">
+                    <p><?= $producto['descripcion']?></p>
+                    <p class="text text-danger">Precio: $<?= $producto['precio']?></p>
+                </article>
             
-            <article class="col-xs-12 col-md-6 col-lg-4 ">
-                <img class="w-100" src="img/bicycle.jpg" alt="Bicicleta">
-                <p  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.</p>
-                <p class="text text-danger">Precio: $18000</p>
-            </article>
-            <article class="col-xs-12 col-md-6 col-lg-4">
-                <img class="w-100" src="img/bicycle1.jpg" alt="Bicicleta">
-                <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.</p>
-                <p class="text text-danger">Precio: $25000</p>
-
-            </article>
-            <article class="col-xs-12 col-md-6 col-lg-4">
-                <img class="w-100" src="img/bicycle3.jpg" alt="Bicicleta">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio atque, hic odit deleniti nemo repudiandae quia earum facere aliquid unde iure omnis eius vitae. Ipsam iste error dolores voluptate! Repellat.</p>
-                <p class="text text-danger">Precio: $16000</p>
-
-            </article>
+            <?php endforeach;?>
         </section>  
         <section>
             <h2 class="text-center text-success">Trabajando con Funciones</h2>

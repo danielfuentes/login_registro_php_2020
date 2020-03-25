@@ -53,6 +53,33 @@ function guardarRegistro($registro){
     $archivoJson = json_encode($registro);
     file_put_contents('usuarios.json',$archivoJson.PHP_EOL,FILE_APPEND);
 }
+//Para conectar a la base de datos requerimos el $dsn,$usuario (root),password ("") utf-8
+//dsn = Nombre de Origien Datos
+function conexion($host,$dbName, $puerto,$charset,$usuario,$password){
+    try {
+        $dsn = "mysql:host=$host;dbname=$dbName;port=$puerto;charset=$charset";
+        $bd = new PDO($dsn,$usuario,$password);
+        $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $bd;        
+    } catch (PDOException $error) {
+        echo "No me logre conectar con la base de datos ".$error->getMessage();
+        exit;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
