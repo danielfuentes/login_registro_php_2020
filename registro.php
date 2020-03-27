@@ -10,9 +10,13 @@
         $errores = validarRegistro($_POST);
         if(count($errores)==0){
             //dd($_POST);
-            $usuario =  armarRegistro($_POST);
+            //$usuario =  armarRegistro($_POST);
             //dd($usuario);
-            guardarRegistro($usuario);
+            //guardarRegistro($usuario);
+            $bd = conexion("localhost","ecommerce","3306","utf8","root","");
+            
+            guardarUsuario($bd,'usuarios',$_POST);
+            
             header('location: login.php');
         }
     }

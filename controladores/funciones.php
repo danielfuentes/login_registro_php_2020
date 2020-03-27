@@ -68,6 +68,21 @@ function conexion($host,$dbName, $puerto,$charset,$usuario,$password){
 }
 
 
+function guardarUsuario($bd,$tabla,$datos){
+    $userName = $datos['userName'];
+    $email = $datos['email'];
+    $password = password_hash($datos['password'],PASSWORD_DEFAULT);
+    $role = 1;
+    
+    $sql = "insert into $tabla (username,email,password,role) values (:username,:email,:password,:role)";
+    $query = $bd->prepare($sql);
+    $query->bindValue(':username',$userName);
+    $query->bindValue(':email',$email);
+    $query->bindValue(':password',$password);
+    $query->bindValue(':role',$role);
+
+    $query->execute();
+}
 
 
 
