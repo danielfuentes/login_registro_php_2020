@@ -85,7 +85,13 @@ function guardarUsuario($bd,$tabla,$datos){
 }
 
 
-
+function listarUsuarios($bd,$tabla){
+    $sql = "select * from $tabla";
+    $query = $bd->prepare($sql);
+    $query->execute();
+    $usuarios=$query->fetchAll(PDO::FETCH_ASSOC);
+    return $usuarios;
+}
 
 
 
