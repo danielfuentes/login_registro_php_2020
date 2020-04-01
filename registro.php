@@ -7,15 +7,16 @@
         
         $userName = $_POST['userName'];
         $email = $_POST['email'];
-        $errores = validarRegistro($_POST);
+
+        $errores = validarRegistro($_POST,$_FILES);
         if(count($errores)==0){
             //dd($_POST);
             //$usuario =  armarRegistro($_POST);
             //dd($usuario);
             //guardarRegistro($usuario);
             $bd = conexion("localhost","ecommerce","3306","utf8","root","");
-            
-            guardarUsuario($bd,'usuarios',$_POST);
+            $avatar = armarAvatar($_FILES);
+            guardarUsuario($bd,'usuarios',$_POST,$avatar);
             
             header('location: login.php');
         }
@@ -49,7 +50,7 @@
                     </ul>
                 <?php endif;?>
                  
-                <form id="formulario"  class="form" name="formRegistro"     novalidate action=""  method="POST" >
+                <form id="formulario"  class="form" name="formRegistro"     novalidate action=""  method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="userName">Nombre de usuario</label>
                     
@@ -73,10 +74,10 @@
                     <label for="password">Repetir contraseña</label>
                     <input required name="passwordRepeat" type="password" value= ""class="form-control" id="passwordRepeat" placeholder="Repetir contraseña">
                 </div>
-               <!-- <div class="form-group">
+                <div class="form-group">
                     <label for="avatar">Avatar</label>
                     <input required name="avatar" type="file" value= "" class="form-control" id="avatar" >
-                </div> -->          
+                </div>           
             
                 <button type="submit" class="btn btn-primary">Registrarme</button>
                 <a href="login.php" class="btn btn-link">Ya poseo una cuenta</a>

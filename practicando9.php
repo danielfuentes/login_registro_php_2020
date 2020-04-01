@@ -9,10 +9,11 @@
         $ext = pathinfo($nombre,PATHINFO_EXTENSION);
         //dd($archivoOrigen); 
         //dd($_FILES);
+        dd($archivoOrigen);
         if($_FILES['imagen']['error'] != 0){
             echo "Debe subir un archivo... <br>";
         }
-        if($ext != "jpg" && $ext != "jpeg" != "png"){
+        if($ext != "jpg" && $ext != "jpeg"  && $ext != "png"){
             echo "Debes subir archivos con extensión sólo JPG ó JPEG ó PNG<br>" ;
         }
 

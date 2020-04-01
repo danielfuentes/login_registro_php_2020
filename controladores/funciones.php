@@ -9,7 +9,8 @@ function datos($dato1,$dato2,$dato3,$dato4){
 }
 
 //Funciones de validación de nuestro Registro de Usuarios
-function validarRegistro($datos){
+function validarRegistro($datos,$imagen){
+    
     $errores = [];
    
     $userName = trim($datos['userName']);
@@ -34,7 +35,16 @@ function validarRegistro($datos){
     if($password != $passwordRepeat){
         $errores['passwordRepeat'] = "Las contraseñas no coinciden. Verifique ....";
     }
-
+    $imagen =trim($_FILES['avatar']['name']);
+    
+     
+    $archivoOrigen = $archivoOrigen = ($_FILES['avatar']['tmp_name']);
+    $ext = pathinfo($imagen,PATHINFO_EXTENSION);
+    if($_FILES['avatar']['error'] != 0){
+        $errores['avatar'] = "Debe subir un archivo...";
+    }elseif($ext != "jpg" && $ext != "jpeg" && $ext != "png"){
+        $errores['avatar'] = "Debes subir archivos con extensión sólo JPG ó JPEG ó PNG";
+    }
     return $errores;
 }
 
@@ -68,18 +78,20 @@ function conexion($host,$dbName, $puerto,$charset,$usuario,$password){
 }
 
 
-function guardarUsuario($bd,$tabla,$datos){
+function guardarUsuario($bd,$tabla,$datos,$imagen){
     $userName = $datos['userName'];
     $email = $datos['email'];
     $password = password_hash($datos['password'],PASSWORD_DEFAULT);
     $role = 1;
+    $avatar = $imagen;
     
-    $sql = "insert into $tabla (username,email,password,role) values (:username,:email,:password,:role)";
+    $sql = "insert into $tabla (username,email,password,role,avatar) values (:username,:email,:password,:role,:avatar)";
     $query = $bd->prepare($sql);
     $query->bindValue(':username',$userName);
     $query->bindValue(':email',$email);
     $query->bindValue(':password',$password);
     $query->bindValue(':role',$role);
+    $query->bindValue(':avatar',$avatar);
 
     $query->execute();
 }
@@ -93,7 +105,18 @@ function listarUsuarios($bd,$tabla){
     return $usuarios;
 }
 
-
+//Función para guardar la imagen
+function armarAvatar($imagen){
+    $nombre = $imagen['avatar']['name'];
+    $ext = pathinfo($nombre,PATHINFO_EXTENSION);
+    $archivoOrigen = $imagen['avatar']['tmp_name'];
+    $archivoDestino = dirname(__DIR__);
+    $archivoDestino = $archivoDestino."/imagenes/";
+    $avatar = uniqid().".".$ext;
+    $archivoDestino = $archivoDestino.$avatar;
+    move_uploaded_file($archivoOrigen,$archivoDestino);
+    return $avatar;
+}
 
 
 
