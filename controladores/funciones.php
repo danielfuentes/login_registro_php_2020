@@ -1,4 +1,5 @@
 <?php
+session_start();
 //Crear una función que se encargue de sumar
 function sumar($valor1,$valor2){
     return $valor1 + $valor2;
@@ -119,7 +120,7 @@ function armarAvatar($imagen){
 }
 
 
-// ------- Funciones usadas para el Login -----------
+// ------- Funciones usadas por el Login -----------
 //Función paa validar el acceso al usuario
 function validarLogin($datos){
     
@@ -140,14 +141,13 @@ function validarLogin($datos){
 }
 
 
-//Función control acceso al usuario - Buscando por el email del usuario
+//Función control acceso al usuario - Buscando por el email del mismo
 function buscarPorEmail($bd,$tabla,$email){
-    $email=trim($email);
     $sql="select * from $tabla where email='$email'";
     $query=$bd->prepare($sql);
-     $query->execute();
-     $usuario=$query->fetch(PDO::FETCH_ASSOC);
-    
+    $query->execute();
+    $usuario=$query->fetch(PDO::FETCH_ASSOC);
+   
     if($usuario !=null){
         if($email === $usuario['email']){
             return $usuario;
@@ -156,8 +156,29 @@ function buscarPorEmail($bd,$tabla,$email){
     return null;
 }    
 
+//Función seteo del usuario
+function seteoUsuario($usuario,$datos){
+    $_SESSION["username"] = "$usuario[username]"; 
+    $_SESSION["email"] = "$usuario[email]"; 
+    $_SESSION["role"] = "$usuario[role]"; 
+    $_SESSION["avatar"] = "$usuario[avatar]"; 
+    if($datos['recordarme'] === 'recordarme' ) {
+        setcookie('email', $datos['email'] , time()+3600);
+        setcookie('password' ,$datos['password'],time()+3600);
+    }
+}
 
-
+//Funcion que valida el acceso
+function validarUsuario(){
+    if(isset($_SESSION['email'])){
+        return true;
+    }elseif (isset($_COOKIE['email'])) {
+        $_SESSION['email'] = $_COOKIE['email'];
+        return true;
+    }else{
+        return false;
+    }
+}
 
 
 

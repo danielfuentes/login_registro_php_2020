@@ -13,26 +13,27 @@
       //Busco el usuario por el Email
       $usuario = buscarPorEmail($bd,'usuarios',$email);
       if($usuario==null){
-        $errores['email']="Usuario no encontrado...";
+        $errores['email']="Datos incorrectos verifique...";
       }else{
         //Aquí hago la verificación del password, para determinar si es el mismo que se tiene guardado en la Base de Datos.
         if(password_verify($_POST['password'],$usuario['password'])===false){
           $errores['password']="Datos incorrectos verifique...";
         }else{
-          //seteoUsuario($usuario,$_POST);
-          //if(validarUsuario()){
-          //  header('location:perfil.php');
-          //  exit;
-          //}else{
-          //  header('location:login.php');
-          //  exit;
+          
+          seteoUsuario($usuario,$_POST);
+          if(validarUsuario()){
+            header('location:perfil.php');
+            exit;
+          }else{
+            header('location:login.php');
+            exit;
           }
       }
       
     }
   
   }    
-
+}
 ?>
 
 
