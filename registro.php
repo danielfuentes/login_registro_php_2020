@@ -56,20 +56,16 @@
                     
                     <input required name="userName" type="text"   value= "<?= $userName;?>" class="form-control" id="userName" placeholder="Nombre de usuario" >
                 </div>
-                
-                        
                 <div class="form-group">
                     <label for="email">Correo electrónico</label>
                     <input required name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingrese su correo" value= "<?=$email;?>">
                 </div>
-            
                 <div class="form-group">
                     <label for="password">Contraseña</label>
                     <input required name="password" type="password" value= "" class="form-control" id="password" placeholder="Contraseña">
                 
                     <small class="form-text text-muted">Al menos 6 caracteres, debe contenter sólo números</small>
                 </div>
-                
                 <div class="form-group">
                     <label for="password">Repetir contraseña</label>
                     <input required name="passwordRepeat" type="password" value= ""class="form-control" id="passwordRepeat" placeholder="Repetir contraseña">
