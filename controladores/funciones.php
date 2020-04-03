@@ -119,9 +119,42 @@ function armarAvatar($imagen){
 }
 
 
+// ------- Funciones usadas para el Login -----------
+//Función paa validar el acceso al usuario
+function validarLogin($datos){
+    
+    $errores = [];
+    $email = trim($datos['email']);
+    if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+        $errores['email'] = "Email  inválido...";
+    }
+    $password = trim($datos['password']);
+    if(empty($password)){
+        $errores['password'] = "Password  no lo puede dejar en blanco...";
+    }elseif (strlen($password)>6) {
+        $errores['password'] = "Password  sólo debe poseer hasta 6 digitos";
+    }elseif (is_numeric($password)==false) {
+        $errores['password'] = "Password  sólo debe poseer digitos numericos";
+    }
+    return $errores;
+}
 
 
-
+//Función control acceso al usuario - Buscando por el email del usuario
+function buscarPorEmail($bd,$tabla,$email){
+    $email=trim($email);
+    $sql="select * from $tabla where email='$email'";
+    $query=$bd->prepare($sql);
+     $query->execute();
+     $usuario=$query->fetch(PDO::FETCH_ASSOC);
+    
+    if($usuario !=null){
+        if($email === $usuario['email']){
+            return $usuario;
+      }  
+    }
+    return null;
+}    
 
 
 

@@ -1,3 +1,41 @@
+<?php
+  require_once('controladores/funciones.php');
+  require_once('helpers/dd.php');
+  $email = "";
+
+  if($_POST){
+    $email = $_POST['email'];
+    //Validar el login - Datos que coloca el usuario
+    $errores = validarLogin($_POST);
+    if(count($errores)==0){
+      //Hago la apertura de la Base de Datos
+      $bd=conexion("localhost","ecommerce","3306","utf8","root","");
+      //Busco el usuario por el Email
+      $usuario = buscarPorEmail($bd,'usuarios',$email);
+      if($usuario==null){
+        $errores['email']="Usuario no encontrado...";
+      }else{
+        //Aquí hago la verificación del password, para determinar si es el mismo que se tiene guardado en la Base de Datos.
+        if(password_verify($_POST['password'],$usuario['password'])===false){
+          $errores['password']="Datos incorrectos verifique...";
+        }else{
+          //seteoUsuario($usuario,$_POST);
+          //if(validarUsuario()){
+          //  header('location:perfil.php');
+          //  exit;
+          //}else{
+          //  header('location:login.php');
+          //  exit;
+          }
+      }
+      
+    }
+  
+  }    
+
+?>
+
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -17,11 +55,20 @@
         <div id="formContainer" class="col-xs-12 align-items-center formulario">
           <div class="col-8 offset-2  ">
             <h1>Iniciar Sesión</h1>
+            <?php 
+                if(isset($errores)):?>
+                    <ul class="text-center alert alert-danger">
+                        <?php foreach ($errores as $error) :?>
+                            <li><?= $error;?></li>
+                        <?php endforeach;?>                    
+                    </ul>
+                <?php endif;?>
+
             <form id="formulario"  class="form" name="formLogin"     novalidate action=""  method="POST" enctype="multipart/form-data" >
                       
               <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input required name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingrese su correo" value= "">
+                <input required name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingrese su correo" value= "<?=$email;?>">
               </div>
           
               <div class="form-group">
